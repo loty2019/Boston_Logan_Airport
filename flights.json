@@ -1,0 +1,7 @@
+{
+  "flights": [
+    { "destination": "London", "coords": { "lat": 51.5074, "lon": -0.1278 } },
+    { "destination": "Tokyo", "coords": { "lat": 35.6895, "lon": 139.6917 } },
+    { "destination": "New York", "coords": { "lat": 40.7128, "lon": -74.006 } }
+  ]
+}
