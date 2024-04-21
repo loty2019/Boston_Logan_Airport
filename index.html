@@ -8,17 +8,9 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://d3js.org/topojson.v3.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/ScrollMagic.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/debug.addIndicators.min.js"></script>
     <style>
-        .svg-container {
-            display: inline-block;
-            position: relative;
-            width: 100%;
-            padding-bottom: 60%;
-            /* Aspect ratio */
-            vertical-align: top;
-            overflow: hidden;
-        }
-    
         .svg-content-responsive {
             display: inline-block;
             position: absolute;
@@ -27,27 +19,84 @@
             right: 0;
             bottom: 0;
         }
+
+        .svg-container {
+            display: block;
+            position: sticky;
+            height: 30vw !important;
+            overflow:hidden;
+            z-index: 10;
+            padding-top: 50%;
+        }
+
+        .intro {
+            height: 320vh;
+        }
+        
     </style>
-    <script src="map.js"></script>
+    <script src="/src/map.js"></script>
+    <script src="/src/scrollMagic.js"></script>
 </head>
 
-<body class="bg-gray-100 flex flex-col items-center justify-center ">
-    <h1 class="text-4xl font-bold text-center mt-5 mb-12">Boston Logan Airport</h1>
+<body class="bg-gray-100 flex flex-col items-center justify-center">
+    <h1 class="text-8xl font-bold text-center pt-5 mb-12 top-0 z-50 w-screen p-10 shadow-sm rounded-lg bg-gray-100 sticky">Boston Logan Airport</h1>
 
-    <div id="map-viz-container" class="flex flex-col md:flex-row gap-5">
-
-        <div class="flex flex-col items-center w-full">
+    <div class="intro flex flex-row w-full justify-around items-start p-10 mt-36">
+        <div class="w-1/2 sticky top-96">
             <p class="text-2xl font-bold text-center mb-5">Flight Connections Map</p>
             <div id="chartId" class="svg-container border-8 rounded-xl">
+                <!-- SVG Map -->
             </div>
         </div>
 
-        <div class="flex flex-col pl-20 items-center justify-center ">
-            <p class="text-lg text-center">The Boston Airport has over xxx connections around the world.<br> xxx domestic flights, xxx international flights, and more than xxx layovers.</p>
+        <div class="w-1/2 h-screen pl-10 items-start ">
+                <div id="trigger1"></div>
+                <p id="pin1" class="intro-text py-20 px-5 text-center border-8 rounded-xl font-bold text-lg border-slate-500">The Boston Airport has over xxx connections around the world.</p>
+                <div id="trigger2"></div>
+                <p id="pin2" class="intro-text py-20 px-5 text-center border-8 rounded-xl font-bold text-lg border-slate-500">xxx domestic flights...</p>
+                <div id="trigger3"></div>
+                <p id="pin3" class="intro-text py-20 px-5 text-center border-8 rounded-xl font-bold text-lg border-slate-500">xxx international flights...</p>
+                <div id="trigger4"></div>
+                <p id="pin4" class="intro-text py-20 px-5 text-center border-8 rounded-xl font-bold text-lg border-slate-500">and more than xxx layovers.</p>
+                <!-- Additional Text Here -->
+            </div>
         </div>
     </div>
 
+    <div class="flex flex-col items-center justify-center mt-10">
+        <p class="text-lg">Scroll down to see more information about the airport.</p>
+    </div>
 
+    <div >
+        <p class="text-lg"> This is a project by...</p>
+        <p class="text-lg"> This is a project by...</p>
+        <p class="text-lg"> This is a project by...</p>
+        <p class="text-lg"> This is a project by...</p>
+        <p class="text-lg"> This is a project by...</p>
+        <p class="text-lg"> This is a project by...</p>
+        <p class="text-lg"> This is a project by...</p>
+        <p class="text-lg"> This is a project by...</p>
+        <p class="text-lg"> This is a project by...</p>
+        <p class="text-lg"> This is a project by...</p>
+        <p class="text-lg"> This is a project by...</p>
+        <p class="text-lg"> This is a project by...</p>
+        <p class="text-lg"> This is a project by...</p>
+        <p class="text-lg"> This is a project by...</p>
+        <p class="text-lg"> This is a project by...</p>
+        <p class="text-lg"> This is a project by...</p>
+        <p class="text-lg"> This is a project by...</p>
+        <p class="text-lg"> This is a project by...</p>
+        <p class="text-lg"> This is a project by...</p>
+        <p class="text-lg"> This is a project by...</p>
+        <p class="text-lg"> This is a project by...</p>
+        <p class="text-lg"> This is a project by...</p>
+        <p class="text-lg"> This is a project by...</p>
+        <p class="text-lg"> This is a project by...</p>
+        <p class="text-lg"> This is a project by...</p>
+        <p class="text-lg"> This is a project by...</p>
+        <p class="text-lg"> This is a project by...</p>
+        <p class="text-lg"> This is a project by...</p>
+    </div>
 
 </body>
 
