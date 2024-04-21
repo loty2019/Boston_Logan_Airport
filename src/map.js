@@ -1,5 +1,6 @@
-function domesticFlights(svg, path) {
-  d3.json("/src/international_flights.json").then(function (data) {
+function domesticFlights(svg, path, whereTo) {
+  console.log(whereTo)
+  d3.json("/src/"+ whereTo).then(function (data) {
     svg
       .selectAll("myFlights")
       .data(data.flights)
@@ -19,14 +20,28 @@ function domesticFlights(svg, path) {
         return this.getTotalLength();
       })
       .style("fill", "none")
-      .style("stroke", "#FF5733")
+      .style("stroke", "blue")
+      // .style("stroke", function () {
+      //   return getRandomColor();
+      // })
       .style("stroke-width", 1)
       .transition()
       .duration(3000)
       .ease(d3.easeLinear)
       .attr("stroke-dashoffset", 0);
+
+    // function getRandomColor() {
+    //   var letters = "0123456789ABCDEF";
+    //   var color = "#";
+    //   for (var i = 0; i < 6; i++) {
+    //     color += letters[Math.floor(Math.random() * 16)];
+    //   }
+    //   return color;
+    // }
   });
 }
+
+
 
 document.addEventListener("DOMContentLoaded", function () {
   var svg = d3
@@ -62,36 +77,39 @@ document.addEventListener("DOMContentLoaded", function () {
 
   var scene = new ScrollMagic.Scene({
     triggerElement: "#trigger1",
-    duration: 600,
+    duration: 800,
   })
     .setPin("#pin1")
-    .addIndicators({ name: "1 (duration: 400)" })
+    .addIndicators({ name: "1 (duration: 800)" })
     .addTo(controller);
 
   var scene2 = new ScrollMagic.Scene({
     triggerElement: "#trigger2",
-    duration: 600,
+    duration: 800,
   })
     .setPin("#pin2")
-    .addIndicators({ name: "2 (duration: 400)" })
+    .addIndicators({ name: "2 (duration: 800)" })
     .addTo(controller)
     .on("enter", function (event) {
-      domesticFlights(svg, path);
+      domesticFlights(svg, path, "domestic_flights.json");
     });
 
   var scene3 = new ScrollMagic.Scene({
     triggerElement: "#trigger3",
-    duration: 600,
+    duration: 800,
   })
     .setPin("#pin3")
-    .addIndicators({ name: "3 (duration: 400)" })
-    .addTo(controller);
+    .addIndicators({ name: "3 (duration: 800)" })
+    .addTo(controller)
+    .on("enter", function (event) {
+      domesticFlights(svg, path, "international_flights.json");
+    });
 
   var scene4 = new ScrollMagic.Scene({
     triggerElement: "#trigger4",
-    duration: 600,
+    duration: 800,
   })
     .setPin("#pin4")
-    .addIndicators({ name: "4 (duration: 400)" })
+    .addIndicators({ name: "4 (duration: 800)" })
     .addTo(controller);
 });
