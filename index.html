@@ -19,47 +19,87 @@
             right: 0;
             bottom: 0;
         }
-/* test test  */
+
         .svg-container {
             display: block;
             position: sticky;
             height: 30vw !important;
-            overflow:hidden;
+            overflow: hidden;
             z-index: 10;
             padding-top: 50%;
         }
 
         .intro {
-            height: 395vh;
+            height: 5000px;
+        }
+
+        .boxshadow {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         
     </style>
     <script src="/src/map.js"></script>
     <script src="/src/scrollMagic.js"></script>
+    <script src="/src/runwayBar.js"></script>
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
 </head>
 
 <body class="bg-gray-100 flex flex-col items-center justify-center">
-    <h1 class="text-8xl font-bold text-center pt-5 mb-12 top-0 z-50 w-screen p-10 shadow-md rounded-xl bg-gray-100 sticky">Boston Logan Airport</h1>
 
-    <div class="intro flex flex-row w-full justify-around items-start p-10 mt-36">
-        <div class="w-2/3 sticky top-96">
-            <p class="text-2xl font-bold text-center mb-5">Flight Connections Map</p>
-            <div id="chartId" class="svg-container border-8 rounded-xl">
-                <!-- SVG Map -->
-            </div>
+    <div class="grid grid-cols-5">
+        <p class="p-2 text-8xl justify-center text-center items-center">🛬</p>
+        <h1
+            class="boxshadow text-7xl col-span-3 font-bold font-sans text-center pt-5 mx-10 mb-3 mt-2  p-10 rounded-xl bg-gray-100 sticky">
+            Boston Logan Airport
+        </h1>
+        <p class="p-2 text-8xl justify-center text-center items-center">🛫</p>
+    </div>
+
+    <div class="py-10 mt-10 px-5 text-center border-b-8 border-t-8 font-bold text-lg border-slate-500">
+        <h3 class="text-5xl font-semibold mb-5">Welcome!</h3>
+        <div class="flex flex-row justify-center items-center">
+            <p class="text-xl font-thin w-1/4">
+                Born out of love for aviation and aircraft, this project aims to celebrate and highlight the
+                pivotal role of Boston Logan Airport. Serving as a crucial gateway for international travelers and a key
+                local institution, the airport has a dynamic impact on both the global stage and within the community.
+                Through this website, I invite you to explore various visual insights that demonstrate just how
+                important
+                Boston Logan Airport really is to people everywhere.
+            </p>
+
+            <dotlottie-player class="w-2/4"
+                src="https://lottie.host/16b6c20f-f4ad-432e-a9d4-9d8aed330974/k2juxhCMnw.json" background="transparent"
+                speed="1" loop autoplay>
+            </dotlottie-player>
+        </div>
+    </div>
+
+    <div class="intro flex flex-row w-full justify-around items-start p-10 mt-10">
+        <div class="w-3/5 sticky top-56">
+            <img src="/img/Boston_Logan_logo.png" alt="Logo" class="w-2/4">
+            <span class="pl-5 text-xl font-bold text-center mb-5">Flights Map</p>
+                <div id="chartId" class="svg-container bg-gray-200 border-8 border-gray-300 rounded-xl">
+                    <!-- SVG Map -->
+                </div>
         </div>
 
-        <div class="w-1/3 h-screen pl-10 items-start ">
-                <div id="trigger1"></div>
-                <p id="pin1" class="intro-text py-20 px-5 text-center border-8 rounded-xl font-bold text-lg border-slate-500">The Boston Airport has over xxx connections around the world.</p>
-                <div id="trigger2"></div>
-                <p id="pin2" class="intro-text py-20 px-5 text-center border-8 rounded-xl font-bold text-lg border-slate-500">xxx domestic flights...</p>
-                <div id="trigger3"></div>
-                <p id="pin3" class="intro-text py-20 px-5 text-center border-8 rounded-xl font-bold text-lg border-slate-500">xxx international flights...</p>
-                <div id="trigger4"></div>
-                <p id="pin4" class="intro-text py-20 px-5 text-center border-8 rounded-xl font-bold text-lg border-slate-500">and more than xxx layovers.</p>
-                <!-- Additional Text Here -->
-            </div>
+        <div class="w-2/5 h-screen pl-10 items-center mt-14 ">
+            <div id="trigger1"></div>
+            <p id="pin1"
+                class="intro-text py-20 px-5 text-center border-8  rounded-xl font-normal text-lg border-slate-500">The
+                Boston Logan Airport has over xxx connections around the world.</p>
+            <div id="trigger2"></div>
+            <p id="pin2"
+                class="intro-text py-20 px-5 text-center border-8 rounded-xl font-normal text-lg border-slate-500"><span
+                    class="text-3xl font-semibold">83</span> <span class="font-bold">domestic</span> flight destinations</p>
+            <div id="trigger3"></div>
+            <p id="pin3"
+                class="intro-text py-20 px-5 text-center border-8 rounded-xl font-normal text-lg border-slate-500"><span
+                    class="text-3xl font-semibold">Over 50</span> non-stop <span class="font-bold">international</span> flight destinations </p>
+            <div id="trigger4"></div>
+            <p id="pin4"
+                class="intro-text py-20 px-5 text-center border-8 rounded-xl font-thin text-lg border-slate-500">and
+                more than xxx layover destinations</p>
         </div>
     </div>
 
@@ -67,35 +107,9 @@
         <p class="text-lg">Scroll down to see more information about the airport.</p>
     </div>
 
-    <div >
+    <div>
         <p class="text-lg"> This is a project by...</p>
-        <p class="text-lg"> This is a project by...</p>
-        <p class="text-lg"> This is a project by...</p>
-        <p class="text-lg"> This is a project by...</p>
-        <p class="text-lg"> This is a project by...</p>
-        <p class="text-lg"> This is a project by...</p>
-        <p class="text-lg"> This is a project by...</p>
-        <p class="text-lg"> This is a project by...</p>
-        <p class="text-lg"> This is a project by...</p>
-        <p class="text-lg"> This is a project by...</p>
-        <p class="text-lg"> This is a project by...</p>
-        <p class="text-lg"> This is a project by...</p>
-        <p class="text-lg"> This is a project by...</p>
-        <p class="text-lg"> This is a project by...</p>
-        <p class="text-lg"> This is a project by...</p>
-        <p class="text-lg"> This is a project by...</p>
-        <p class="text-lg"> This is a project by...</p>
-        <p class="text-lg"> This is a project by...</p>
-        <p class="text-lg"> This is a project by...</p>
-        <p class="text-lg"> This is a project by...</p>
-        <p class="text-lg"> This is a project by...</p>
-        <p class="text-lg"> This is a project by...</p>
-        <p class="text-lg"> This is a project by...</p>
-        <p class="text-lg"> This is a project by...</p>
-        <p class="text-lg"> This is a project by...</p>
-        <p class="text-lg"> This is a project by...</p>
-        <p class="text-lg"> This is a project by...</p>
-        <p class="text-lg"> This is a project by...</p>
+        <div id="runwayChart" class="svg-container "></div>
     </div>
 
 </body>
