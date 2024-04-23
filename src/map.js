@@ -1,6 +1,6 @@
 function flightsRoute(svg, path, whereTo) {
   console.log(whereTo)
-  d3.json("/src/"+ whereTo).then(function (data) {
+  d3.json("src/"+ whereTo).then(function (data) {
     
     svg.selectAll("path.flight-path").remove();
 
