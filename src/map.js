@@ -24,7 +24,7 @@ function flightsRoute(svg, path, whereTo) {
         return this.getTotalLength();
       })
       .style("fill", "none")
-      .style("stroke", "blue")
+      .style("stroke", "#335abd")
       // .style("stroke", function () {
       //   return getRandomColor();
       // })
@@ -33,6 +33,23 @@ function flightsRoute(svg, path, whereTo) {
       .duration(2000)
       .ease(d3.easeLinear)
       .attr("stroke-dashoffset", 0);
+
+    svg
+      .selectAll("myCircles")
+      .data(data.flights)
+      .enter()
+      .append("circle")
+      .attr("cx", function (d) {
+        return projection([d.destination[1], d.destination[0]])[0];
+      })
+      .attr("cy", function (d) {
+        return projection([d.destination[1], d.destination[0]])[0];
+      })
+      .attr("r", 14)
+      .style("fill", "69b3a2")
+      .attr("stroke", "#69b3a2")
+      .attr("stroke-width", 3)
+      .attr("fill-opacity", 0.4);
 
     // function getRandomColor() {
     //   var letters = "0123456789ABCDEF";
