@@ -1,8 +1,8 @@
-function flightsRoute(svg, path, whereTo) {
-  console.log(whereTo)
-  d3.json("src/"+ whereTo).then(function (data) {
-    
+function flightsRoute(svg, path, projection, whereTo) {
+  console.log(whereTo);
+  d3.json("src/" + whereTo).then(function (data) {
     svg.selectAll("path.flight-path").remove();
+    svg.selectAll("circle").remove(); // Clear existing circles
 
     svg
       .selectAll("myFlights")
@@ -25,9 +25,6 @@ function flightsRoute(svg, path, whereTo) {
       })
       .style("fill", "none")
       .style("stroke", "#335abd")
-      // .style("stroke", function () {
-      //   return getRandomColor();
-      // })
       .style("stroke-width", 0.8)
       .transition()
       .duration(2000)
@@ -40,29 +37,27 @@ function flightsRoute(svg, path, whereTo) {
       .enter()
       .append("circle")
       .attr("cx", function (d) {
-        return projection([d.destination[1], d.destination[0]])[0];
+        return projection([d.destination[0], d.destination[1]])[0];
       })
       .attr("cy", function (d) {
-        return projection([d.destination[1], d.destination[0]])[0];
+        return projection([d.destination[0], d.destination[1]])[1];
       })
-      .attr("r", 14)
-      .style("fill", "69b3a2")
-      .attr("stroke", "#69b3a2")
-      .attr("stroke-width", 3)
-      .attr("fill-opacity", 0.4);
-
-    // function getRandomColor() {
-    //   var letters = "0123456789ABCDEF";
-    //   var color = "#";
-    //   for (var i = 0; i < 6; i++) {
-    //     color += letters[Math.floor(Math.random() * 16)];
-    //   }
-    //   return color;
-    // }
+      .attr("r", 2)
+      .style("fill", "#6e8ee0")
+      .attr("stroke", "#6e8ee0")
+      .attr("stroke-width", 1)
+      .attr("fill-opacity", 0.8);
   });
 }
 
-
+// function getRandomColor() {
+//   var letters = "0123456789ABCDEF";
+//   var color = "#";
+//   for (var i = 0; i < 6; i++) {
+//     color += letters[Math.floor(Math.random() * 16)];
+//   }
+//   return color;
+// }
 
 document.addEventListener("DOMContentLoaded", function () {
   var svg = d3
@@ -112,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // .addIndicators({ name: "2 (duration: 1000)" })
     .addTo(controller)
     .on("enter", function (event) {
-      flightsRoute(svg, path, "domestic_flights.json");
+      flightsRoute(svg, path, projection, "domestic_flights.json");
     });
 
   var scene3 = new ScrollMagic.Scene({
@@ -123,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // .addIndicators({ name: "3 (duration: 1000)" })
     .addTo(controller)
     .on("enter", function (event) {
-      flightsRoute(svg, path, "international_flights.json");
+      flightsRoute(svg, path, projection, "international_flights.json");
     });
 
   var scene4 = new ScrollMagic.Scene({
