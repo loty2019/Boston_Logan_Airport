@@ -97,7 +97,10 @@ document.addEventListener("DOMContentLoaded", function () {
   })
     .setPin("#pin1")
     // .addIndicators({ name: "1 (duration: 1000)" })
-    .addTo(controller);
+    .addTo(controller)
+    .on("enter", function (event) {
+      flightsRoute(svg, path, projection, "all_flights.json");
+    });
 
   var scene2 = new ScrollMagic.Scene({
     triggerElement: "#trigger2",
