@@ -10,6 +10,7 @@
     <script src="https://d3js.org/topojson.v3.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/ScrollMagic.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/debug.addIndicators.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <style>
         .svg-content-responsive {
             display: inline-block;
@@ -29,14 +30,23 @@
             padding-top: 50%;
         }
 
+        .svg-container-world {
+            position: block;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 10;
+           
+        }
+
         .runway-svg {
             display: block;
-           
+
         }
 
         .intro {
             height: 5100px;
-            
+
         }
 
         .boxshadow {
@@ -44,34 +54,36 @@
         }
     </style>
     <script src="src/map.js" type="text/javascript"></script>
-    <script src="src/scrollMagic.js" type="text/javascript"></script>
-    <script src="src/runwayBar.js" type="text/javascript"></script>
+    <script src="src/density.js" type="text/javascript"></script>
+    <script src="src/passengersBar.js" type="text/javascript"></script>
     <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
 </head>
 
 <body class="bg-gray-100 flex flex-col items-center justify-center">
 
     <div class="grid grid-cols-5">
-        <p class="p-2 text-8xl justify-center text-center items-center">🛬</p>
+        <p class="animate__animated animate__fadeInLeftBig text-8xl justify-center text-center items-center">🛬</p>
         <h1
             class="boxshadow text-7xl col-span-3 font-bold font-sans text-center pt-5 mx-10 mb-3 mt-2  p-10 rounded-xl bg-gray-100 sticky">
             Boston Logan Airport
         </h1>
-        <p class="p-2 text-8xl justify-center text-center items-center">🛫</p>
+        <p class="animate__animated animate__fadeInRightBig p-2 text-8xl justify-center text-center items-center">🛫</p>
     </div>
 
     <div class="py-10 mt-10 px-5 text-center border-b-8 border-t-8 font-bold text-lg border-slate-500">
         <h3 class="text-5xl font-semibold mb-5">Welcome!</h3>
         <div class="flex flex-row justify-center items-center">
-            <p class="text-xl font-thin w-1/4">
+            <p class="animate__animated animate__fadeInLeftBig text-xl  text-left font-thin w-1/4">
                 Born out of love for aviation and aircraft, this project aims to celebrate and highlight the
-                pivotal role of Boston Logan Airport. <br><br>Serving as a crucial gateway for international travelers and a key
-                local institution, the airport has a dynamic impact on both the global stage and within the New England community.
+                pivotal role of Boston Logan Airport. <br><br>Serving as a crucial gateway for international travelers
+                and a key
+                local institution, the airport has a dynamic impact on both the global stage and within the New England
+                community.
                 <br><br> Through this website, I invite you to explore various visual insights that demonstrate just how
                 important Boston Logan Airport really is to people in New England.
             </p>
 
-            <dotlottie-player class="pl-5 w-2/4"
+            <dotlottie-player class="animate__animated animate__fadeInRightBig pl-5 w-2/4"
                 src="https://lottie.host/16b6c20f-f4ad-432e-a9d4-9d8aed330974/k2juxhCMnw.json" background="transparent"
                 speed="1" loop autoplay>
             </dotlottie-player>
@@ -90,37 +102,72 @@
         <div class="w-2/5 h-screen pl-10 items-center mt-14 ">
             <div id="trigger1"></div>
             <p id="pin1"
-                class="intro-text py-20 px-5 text-center border-8  rounded-xl font-thin text-lg border-slate-500"><span class="text-3xl font-semibold">📍</span>
-                Boston Logan Airport has over <span class="text-3xl font-semibold">150</span> <b>connections</b> around the world.</p>
+                class="intro-text py-20 px-5 text-center border-8  rounded-xl font-thin text-lg border-slate-500"><span
+                    class="text-3xl font-semibold">📍</span>
+                Boston Logan Airport has over <span class="text-3xl font-semibold">150</span> <b>connections</b> around
+                the world.</p>
             <div id="trigger2"></div>
             <p id="pin2"
                 class="intro-text py-20 px-5 text-center border-8 rounded-xl font-thin text-lg border-slate-500"><span
-                    class="text-3xl font-semibold">🌎 83</span> <span class="font-bold">domestic</span> flight destinations
+                    class="text-3xl font-semibold">🌎 83</span> <span class="font-bold">domestic</span> flight
+                destinations
             </p>
             <div id="trigger3"></div>
             <p id="pin3"
                 class="intro-text py-20 px-5 text-center border-8 rounded-xl font-thin text-lg border-slate-500"><span
-                    class="text-3xl font-semibold">🌍 Over 50</span> non-stop <span class="font-bold">international</span>
+                    class="text-3xl font-semibold">🌍 Over 50</span> non-stop <span
+                    class="font-bold">international</span>
                 flight destinations</p>
             <div id="trigger4"></div>
             <p id="pin4"
-                class="intro-text py-20 px-5 text-center border-8 rounded-xl font-thin text-lg border-slate-500"><span class="text-3xl font-semibold">🧭</span>
+                class="intro-text py-20 px-5 text-center border-8 rounded-xl font-thin text-lg border-slate-500"><span
+                    class="text-3xl font-semibold">🧭</span>
                 More than xxx layover destinations</p>
         </div>
     </div>
 
+    <!-- countries that visit the us the most -->
+    <div class="flex flex-row h-full w-full px-20 items-center border-t-8 pt-20">
+        <div class="border-slate-500 border-8 px-10 rounded-xl w-2/5 ">
+            <p class="text-xl py-20 font-thin">The United States is a popular destination for travelers from around the
+                world.</p>
+        </div>
+
+        <div class="flex flex-col gap-10 justify-center items-center w-3/5">
+            <p class="text-lg mt-10 font-extrabold text-center">Top 10 countries that visit the US the most (2023)</p>
+            <div id="countryChart" class="border-slate-500 border-8 rounded-xl">
+                <!-- SVG World Map -->
+            </div>
+        </div>
+    </div>
     <!-- 🥇🥈🥉 -->
 
-    <div class="flex flex-col items-center mt-6 border-t-4 justify-center text-center w-full">
-        <p class="text-xl py-20 font-thin">Serving as the largest airport in New England, it facilitates the movement of over 35 million passengers annually, 8 million internationally.</p>
+    <div class="flex flex-col items-center mt-20 border-t-8 justify-center text-center w-full">
+        <p class="text-xl py-20 font-thin">Serving as the largest airport in New England, it facilitates the movement of
+            over 35 million passengers annually, 8 million internationally.</p>
     </div>
     <div class="flex flex-row h-full w-full px-20 items-center">
         <div class="border-slate-500 border-8 px-10 rounded-xl w-3/5 ">
             <p class="text-lg mt-10 font-extrabold text-center"> Most important airports in the USA (2023)</p>
             <div id="runwayChart" class="runway-svg"></div>
         </div>
-        <div class="ml-9 block w-2/5 text-center">
-            <p class="font-thin text-lg p-10 border-8 border-slate-500 rounded-lg">Boston Logan airport moves <u>4 times</u> the population of Massachusetts annually </p>
+        <div class="flex flex-col gap-10 items-center w-2/5 ">
+            <div class="ml-9 block text-left">
+                <p class="font-thin text-lg p-10 border-8 border-slate-500 rounded-lg">Boston Logan airport moves <u
+                        class="font-bold">4 times</u> the population of Massachusetts annually </p>
+            </div>
+            <div class="ml-9 block text-left border-8 border-slate-500 p-10 font-thin text-lg rounded-lg">
+                <p>This chart offers insights into the airport's role and its economic and social impacts on
+                    Massachusetts. <br><br><strong class="font-bold">Key
+                        indications include:</strong></p><br>
+                <ul class="">
+                    <li>📸Tourism</li>
+                    <li>🔍 Connectivity and Accessibility</li>
+                    <li>⚙️ Regional Importance</li>
+                    <li>💰Economic Importance</li>
+                </ul>
+            </div>
+
         </div>
     </div>
 

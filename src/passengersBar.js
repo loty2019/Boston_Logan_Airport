@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .append("g")
     .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-  // Define the data for the chart
+  // Data for the chart
   var data = [
     { width: 12.8, img: "img/carrying-suitcase.svg", name: "1. LAS" },
     { width: 11.7, img: "img/carrying-suitcase.svg", name: "2. DEN" },
@@ -46,26 +46,42 @@ document.addEventListener("DOMContentLoaded", function () {
 
   var imageWidth = 75; // Width of each image
 
-  // Append images to the SVG element
-  data.forEach(function (d) {
-    var numImages = Math.floor(x(d.width) / imageWidth);
-
-    for (var i = 0; i < numImages; i++) {
-      var image = svg
-        .append("image")
-        .attr("xlink:href", d.img)
-        .attr("x", i * imageWidth)
-        .attr("y", y(d.name))
-        .attr("width", imageWidth)
-        .attr("height", y.bandwidth())
-        .attr("preserveAspectRatio", "none")
-        .attr("opacity", 0)  // Start fully transparent
-        .transition()  // Begin a transition
-        .duration(1050)  // Duration of 750ms
-        .delay(i * 50)  // Delay each successive image slightly for a staggered effect
-        .attr("opacity", 1);  // Fade to fully opaque
+  var observer = new IntersectionObserver(
+    function (entries) {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          triggerAnimations();
+          observer.unobserve(entry.target); // Unobserve the target element to prevent the animations from being triggered multiple times
+        }
+      });
+    },
+    {
+      threshold: 0.5, // Trigger when 50% of the element is visible
     }
-  });
+  );
+
+  observer.observe(document.querySelector("#runwayChart"));
+
+  function triggerAnimations() {
+    data.forEach(function (d) {
+      var numImages = Math.floor(x(d.width) / imageWidth);
+      for (var i = 0; i < numImages; i++) {
+        svg
+          .append("image")
+          .attr("xlink:href", d.img)
+          .attr("x", i * imageWidth)
+          .attr("y", y(d.name))
+          .attr("width", imageWidth)
+          .attr("height", y.bandwidth())
+          .attr("preserveAspectRatio", "none")
+          .attr("opacity", 0)
+          .transition()
+          .duration(1050)
+          .delay(i * 50)
+          .attr("opacity", 1);
+      }
+    });
+  }
   // Append text labels to the SVG element
   svg
     .selectAll("text")

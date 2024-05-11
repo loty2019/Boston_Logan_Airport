@@ -50,15 +50,6 @@ function flightsRoute(svg, path, projection, whereTo) {
   });
 }
 
-// function getRandomColor() {
-//   var letters = "0123456789ABCDEF";
-//   var color = "#";
-//   for (var i = 0; i < 6; i++) {
-//     color += letters[Math.floor(Math.random() * 16)];
-//   }
-//   return color;
-// }
-
 document.addEventListener("DOMContentLoaded", function () {
   var svg = d3
     .select("div#chartId")
@@ -85,50 +76,46 @@ document.addEventListener("DOMContentLoaded", function () {
       .attr("d", path)
       .style("stroke", "#696969")
       .style("stroke-width", 0.5);
+
+    // scroll magic setup
+    var controller = new ScrollMagic.Controller();
+
+    // Set up scenes for different flight data visualizations
+    var scene1 = new ScrollMagic.Scene({
+      triggerElement: "#trigger1",
+      duration: 1000,
+    })
+      .setPin("#pin1")
+      .addTo(controller)
+      .on("enter", function () {
+        flightsRoute(svg, path, projection, "all_flights.json");
+      });
+
+    var scene2 = new ScrollMagic.Scene({
+      triggerElement: "#trigger2",
+      duration: 1000,
+    })
+      .setPin("#pin2")
+      .addTo(controller)
+      .on("enter", function () {
+        flightsRoute(svg, path, projection, "domestic_flights.json");
+      });
+
+    var scene3 = new ScrollMagic.Scene({
+      triggerElement: "#trigger3",
+      duration: 1000,
+    })
+      .setPin("#pin3")
+      .addTo(controller)
+      .on("enter", function () {
+        flightsRoute(svg, path, projection, "international_flights.json");
+      });
+
+    var scene4 = new ScrollMagic.Scene({
+      triggerElement: "#trigger4",
+      duration: 1000,
+    })
+      .setPin("#pin4")
+      .addTo(controller)
   });
-
-  // scroll magic
-
-  var controller = new ScrollMagic.Controller();
-
-  var scene = new ScrollMagic.Scene({
-    triggerElement: "#trigger1",
-    duration: 1000,
-  })
-    .setPin("#pin1")
-    // .addIndicators({ name: "1 (duration: 1000)" })
-    .addTo(controller)
-    .on("enter", function (event) {
-      flightsRoute(svg, path, projection, "all_flights.json");
-    });
-
-  var scene2 = new ScrollMagic.Scene({
-    triggerElement: "#trigger2",
-    duration: 1000,
-  })
-    .setPin("#pin2")
-    // .addIndicators({ name: "2 (duration: 1000)" })
-    .addTo(controller)
-    .on("enter", function (event) {
-      flightsRoute(svg, path, projection, "domestic_flights.json");
-    });
-
-  var scene3 = new ScrollMagic.Scene({
-    triggerElement: "#trigger3",
-    duration: 1000,
-  })
-    .setPin("#pin3")
-    // .addIndicators({ name: "3 (duration: 1000)" })
-    .addTo(controller)
-    .on("enter", function (event) {
-      flightsRoute(svg, path, projection, "international_flights.json");
-    });
-
-  var scene4 = new ScrollMagic.Scene({
-    triggerElement: "#trigger4",
-    duration: 1000,
-  })
-    .setPin("#pin4")
-    // .addIndicators({ name: "4 (duration: 1000)" })
-    .addTo(controller);
 });
