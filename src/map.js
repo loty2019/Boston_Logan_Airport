@@ -50,6 +50,14 @@ function flightsRoute(svg, path, projection, whereTo) {
   });
 }
 
+function zoomToUS(projection, path, svg) {
+  projection
+    .scale(300) 
+    .translate([850, 400]); 
+
+  svg.selectAll("path").transition().duration(1000).attr("d", path);
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   var svg = d3
     .select("div#chartId")
@@ -88,7 +96,12 @@ document.addEventListener("DOMContentLoaded", function () {
       .setPin("#pin1")
       .addTo(controller)
       .on("enter", function () {
-        flightsRoute(svg, path, projection, "all_flights.json");
+        projection.scale(100).translate([300, 200]);
+        svg.selectAll("path").transition().duration(1000).attr("d", path);
+        setTimeout(function () {
+          projection.scale(100).translate([300, 200]);
+           flightsRoute(svg, path, projection, "all_flights.json");
+        }, 1000);
       });
 
     var scene2 = new ScrollMagic.Scene({
@@ -98,7 +111,10 @@ document.addEventListener("DOMContentLoaded", function () {
       .setPin("#pin2")
       .addTo(controller)
       .on("enter", function () {
-        flightsRoute(svg, path, projection, "domestic_flights.json");
+        zoomToUS(projection, path, svg);
+        setTimeout(function () {
+          flightsRoute(svg, path, projection, "domestic_flights.json");
+        }, 1000);
       });
 
     var scene3 = new ScrollMagic.Scene({
@@ -108,7 +124,14 @@ document.addEventListener("DOMContentLoaded", function () {
       .setPin("#pin3")
       .addTo(controller)
       .on("enter", function () {
-        flightsRoute(svg, path, projection, "international_flights.json");
+        projection.scale(100).translate([300, 200]); // Reset to world view
+        svg.selectAll("path").transition().duration(1000).attr("d", path);
+
+        setTimeout(function () {
+          projection.scale(100).translate([300, 200]);
+          flightsRoute(svg, path, projection, "international_flights.json");
+        }, 1000);
+
       });
 
     var scene4 = new ScrollMagic.Scene({
@@ -116,6 +139,6 @@ document.addEventListener("DOMContentLoaded", function () {
       duration: 1000,
     })
       .setPin("#pin4")
-      .addTo(controller)
+      .addTo(controller);
   });
 });
