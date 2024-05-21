@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", function () {
         height + margin.top + margin.bottom
       }`
     )
-    .classed("svg-content-responsive", true)
     .append("g")
     .attr("transform", `translate(${margin.left}, ${margin.top})`);
 

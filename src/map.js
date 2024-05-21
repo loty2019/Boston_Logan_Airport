@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Set up scenes for different flight data visualizations
     var scene1 = new ScrollMagic.Scene({
       triggerElement: "#trigger1",
-      duration: 1000,
+      duration: 2000,
     })
       .setPin("#pin1")
       .addTo(controller)
@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     var scene2 = new ScrollMagic.Scene({
       triggerElement: "#trigger2",
-      duration: 1000,
+      duration: 2000,
     })
       .setPin("#pin2")
       .addTo(controller)
@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     var scene3 = new ScrollMagic.Scene({
       triggerElement: "#trigger3",
-      duration: 1000,
+      duration: 2000,
     })
       .setPin("#pin3")
       .addTo(controller)
@@ -136,7 +136,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     var scene4 = new ScrollMagic.Scene({
       triggerElement: "#trigger4",
-      duration: 1000,
+      duration: 2000,
     })
       .setPin("#pin4")
       .addTo(controller);
