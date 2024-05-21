@@ -7,9 +7,9 @@ document.addEventListener("DOMContentLoaded", function () {
     .select("div#countryChart")
     .append("svg")
     .attr("preserveAspectRatio", "xMinYMin meet")
-    .attr("viewBox", "0 0 1900 1200") 
+    .attr("viewBox", "0 0 1900 1200")
     .classed("svg-container-world", true)
-    .append("g")
+    .append("g");
 
   // Projection and path setup
   var projection = d3
@@ -29,46 +29,75 @@ document.addEventListener("DOMContentLoaded", function () {
         .data(world.features)
         .enter()
         .append("path")
+        .attr("fill", "#b1b6bd")
         .attr("d", path)
-        .attr("fill", "grey")
-        .attr("stroke", "white")
+        .attr("stroke", "grey")
         .attr("stroke-width", 0.5);
 
       // Data array
-      var data = [
-        { country: "United Kingdom", count: 865698 },
-        { country: "France", count: 425687 },
-        { country: "Republic of Ireland", count: 390163 },
-        { country: "Netherlands", count: 387709 },
-        { country: "Iceland", count: 295814 },
-        { country: "Portugal", count: 251946 },
-        { country: "Aruba", count: 247091 },
-        { country: "Switzerland", count: 244714 },
-        { country: "Canada", count: 384427 },
-        { country: "Germany", count: 426349 },
-        { country: "Italy", count: 227085 },
-        { country: "United Arab Emirates", count: 215120 },
-        { country: "Mexico", count: 199734 },
-        { country: "Qatar", count: 172434 },
-        { country: "Dominican Republic", count: 295754 },
-        { country: "Turkey", count: 161337 },
-        { country: "Spain", count: 159781 },
-      ];
+      d3.json("src/visitorsPerCountry.json").then(function (data) {
+        var dataByCountryID = {};
+        data.forEach(function (d) {
+          dataByCountryID[d.country] = +d.count;
+        });
+        console.log("Data loaded successfully:", dataByCountryID);
 
-      var dataByCountryID = {};
-      data.forEach(function (d) {
-        dataByCountryID[d.country] = +d.count;
-      });
+        // Color scale
+        var colorScale = d3
+          .scaleThreshold()
+          .domain([0, 5000, 10000, 20000, 50000, 100000, 200000])
+          .range(d3.schemeBlues[8]);
 
-      // Color scale
-      var colorScale = d3
-        .scaleThreshold()
-        .domain([0, 50000, 100000, 200000])
-        .range(d3.schemeBlues[5]);
+        // Apply color scale to countries
+        countries.attr("fill", function (d) {
+          if (d.properties.name === "USA") {
+            return "#d3d3d3";
+          } else {
+            if (dataByCountryID[d.properties.name]) {
+              return colorScale(dataByCountryID[d.properties.name]);
+            } else {
+              return "#f3f4f6";
+            }
+          }
+        });
 
-      // Apply color scale to countries
-      countries.attr("fill", function (d) {
-        return colorScale(dataByCountryID[d.properties.name] || 0);
+        // Add legend
+        var legend = svg
+          .append("g")
+          .attr("class", "legend")
+          .attr("transform", "translate(50, 50)");
+
+        var legendData = [
+          { color: d3.schemeBlues[8][1], label: "0 - 5,000" },
+          { color: d3.schemeBlues[8][2], label: "5,001 - 10,000" },
+          { color: d3.schemeBlues[8][3], label: "10,001 - 20,000" },
+          { color: d3.schemeBlues[8][4], label: "20,001 - 50,000" },
+          { color: d3.schemeBlues[8][5], label: "50,001 - 100,000" },
+          { color: d3.schemeBlues[8][6], label: "100,001 - 200,000" },
+          { color: d3.schemeBlues[8][7], label: "200,001+" },
+        ];
+
+        legendData.forEach(function (d, i) {
+          var legendRow = legend
+            .append("g")
+            .attr("transform", "translate(0," + i * 30 + ")");
+
+          legendRow
+            .append("rect")
+            .attr("width", 20)
+            .attr("height", 20)
+            .attr("fill", d.color);
+
+          legendRow.append("text").attr("x", 30).attr("y", 15).text(d.label);
+        });
+
+        // Add legend title
+        svg
+          .append("text")
+          .attr("x", 50)
+          .attr("y", 30)
+          .attr("class", "legend")
+          .text("Visitors per Country");
       });
     })
     .catch(function (error) {
