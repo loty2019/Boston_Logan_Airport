@@ -124,6 +124,18 @@ document.addEventListener("DOMContentLoaded", function () {
       .setPin("#pin3")
       .addTo(controller)
       .on("enter", function () {
+        svg.selectAll("*").remove();
+        svg
+          .append("g")
+          .selectAll("path")
+          .data(dataGeo.features)
+          .enter()
+          .append("path")
+          .attr("fill", "#b1b6bd")
+          .attr("d", path)
+          .style("stroke", "#696969")
+          .style("stroke-width", 0.5);
+
         projection.scale(100).translate([300, 200]); // Reset to world view
         svg.selectAll("path").transition().duration(1000).attr("d", path);
 
@@ -139,6 +151,17 @@ document.addEventListener("DOMContentLoaded", function () {
       duration: 2000,
     })
       .setPin("#pin4")
-      .addTo(controller);
+      .addTo(controller)
+      .on("enter", function () {
+        svg.selectAll("*").remove();
+        svg
+          .append("image")
+          .attr("xlink:href", "img/airlines.png")
+          .attr("x", 0)
+          .attr("y", 0)
+          .attr("width", 600)
+          .attr("height", 350)
+          .attr("padding", 10);
+      })
   });
 });
