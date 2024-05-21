@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", function () {
   var width = 1900;
   var height = 1700;
 
-  // Select the container and append an SVG element to it
   var svg = d3
     .select("div#countryChart")
     .append("svg")
@@ -11,19 +10,18 @@ document.addEventListener("DOMContentLoaded", function () {
     .classed("svg-container-world", true)
     .append("g");
 
-  // Projection and path setup
+
   var projection = d3
     .geoMercator()
-    .scale(300) // Adjusted scale to better fit your viewBox
-    .translate([width / 2, height / 2]); // Adjust to use local width and height
+    .scale(300) 
+    .translate([width / 2, height / 2]); 
   var path = d3.geoPath().projection(projection);
 
-  // Load and display GeoJSON
   d3.json("https://enjalot.github.io/wwsd/data/world/world-110m.geojson")
     .then(function (world) {
       console.log("GeoJSON loaded successfully");
 
-      // Add paths for each country
+
       var countries = svg
         .selectAll("path")
         .data(world.features)
@@ -40,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
         data.forEach(function (d) {
           dataByCountryID[d.country] = +d.count;
         });
-        console.log("Data loaded successfully:", dataByCountryID);
+        //console.log("Data loaded successfully:", dataByCountryID);
 
         // Color scale
         var colorScale = d3
@@ -48,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
           .domain([0, 5000, 10000, 20000, 50000, 100000, 200000])
           .range(d3.schemeBlues[8]);
 
-        // Apply color scale to countries
+
         countries.attr("fill", function (d) {
           if (d.properties.name === "USA") {
             return "#d3d3d3";
@@ -61,11 +59,10 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         });
 
-        // Add legend
         var legend = svg
           .append("g")
           .attr("class", "legend")
-          .attr("transform", "translate(50, 50)");
+          .attr("transform", `translate(50, ${height - 800})`);
 
         var legendData = [
           { color: d3.schemeBlues[8][1], label: "0 - 5,000" },
@@ -80,22 +77,26 @@ document.addEventListener("DOMContentLoaded", function () {
         legendData.forEach(function (d, i) {
           var legendRow = legend
             .append("g")
-            .attr("transform", "translate(0," + i * 30 + ")");
+            .attr("transform", "translate(0," + i * 40 + ")");
 
           legendRow
             .append("rect")
-            .attr("width", 20)
-            .attr("height", 20)
+            .attr("width", 30)
+            .attr("height", 30)
             .attr("fill", d.color);
 
-          legendRow.append("text").attr("x", 30).attr("y", 15).text(d.label);
+          legendRow
+            .append("text")
+            .attr("x", 40)
+            .attr("y", 20)
+            .attr("dy", "0.52em")
+            .text(d.label);
         });
 
-        // Add legend title
         svg
           .append("text")
           .attr("x", 50)
-          .attr("y", 30)
+          .attr("y", height - 220)
           .attr("class", "legend")
           .text("Visitors per Country");
       });
